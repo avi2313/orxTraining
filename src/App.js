@@ -19,6 +19,11 @@ function App() {
   useEffect(() => {
     // Update the document title using the browser API
     netlifyIdentity.init();
+
+    if (user) {
+      this.setState({user: JSON.parse(user)});
+    }
+    
     netlifyIdentity.on("login", () => loginUser());
     netlifyIdentity.on("logout", () => logoutUser());
   });
