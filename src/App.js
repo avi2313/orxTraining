@@ -19,10 +19,28 @@ function App() {
   useEffect(() => {
     // Update the document title using the browser API
     netlifyIdentity.init();
+    netlifyIdentity.on("login", () => loginUser());
+    netlifyIdentity.on("logout", () => logoutUser());
   });
 
   function handleLogIn() {
     netlifyIdentity.open();
+  }
+
+  function loginUser() {
+    if (netlifyIdentity && netlifyIdentity.currentUser()) {
+      const {
+        app_metadata, created_at, confirmed_at, email, id, user_metadata
+      } = netlifyIdentity.currentUser();
+  
+      setUser(
+        JSON.stringify({ ...app_metadata, created_at, confirmed_at, email, id, ...user_metadata })
+      );
+    }
+  }
+  
+  function logoutUser() {
+    setUser(null);
   }
 
   return (
@@ -39,22 +57,6 @@ function App() {
       </div>
     </Main>
   );
-}
-
-export function loginUser() {
-  if (netlifyIdentity && netlifyIdentity.currentUser()) {
-    const {
-      app_metadata, created_at, confirmed_at, email, id, user_metadata
-    } = netlifyIdentity.currentUser();
-
-    setUser(
-      JSON.stringify({ ...app_metadata, created_at, confirmed_at, email, id, ...user_metadata })
-    );
-  }
-}
-
-export function logoutUser() {
-  setUser(null);
 }
 
 export default App;
