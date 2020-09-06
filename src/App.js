@@ -20,10 +20,8 @@ function App() {
     // Update the document title using the browser API
     netlifyIdentity.init();
 
-    if (user) {
-      this.setState({user: JSON.parse(user)});
-    }
-    
+    loginUser();
+
     netlifyIdentity.on("login", () => loginUser());
     netlifyIdentity.on("logout", () => logoutUser());
   });
