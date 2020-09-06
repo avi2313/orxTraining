@@ -25,8 +25,8 @@ function App() {
     } else {
       loginUser();
     }
-    netlifyIdentity.on("login", (user) => setUser({ user }, loginUser()));
-    netlifyIdentity.on("logout", (user) => setUser({ user: null }, logoutUser()));
+    netlifyIdentity.on("login", (user) => setUser(user));
+    netlifyIdentity.on("logout", (user) => setUser(null));
   });
 
   function handleLogIn() {
