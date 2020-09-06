@@ -13,20 +13,29 @@ function App() {
   const Main = styled.div`
   display: flex;
   align-items: center;`
- 
-  const [user] = useState(null);
+
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     // Update the document title using the browser API
     netlifyIdentity.init();
+    const user = localStorage.getItem("currentOpenSaucedUser");
+    if (user) {
+      setUser({ user: JSON.parse(user) });
+    } else {
+      loginUser();
+    }
+    netlifyIdentity.on("login", (user) => setUser({ user }, loginUser()));
+    netlifyIdentity.on("logout", (user) => setUser({ user: null }, logoutUser()));
   });
 
-  function handleLogIn () {
+  function handleLogIn() {
     netlifyIdentity.open();
   }
 
   return (
     <Main>
+      <span>{user}</span>
       <button onClick={handleLogIn} >Log in with netlify</button>
       <NavBar />
       <div>
@@ -48,7 +57,7 @@ export function loginUser() {
 
     localStorage.setItem(
       "currentOpenSaucedUser",
-      JSON.stringify({...app_metadata, created_at, confirmed_at, email, id, ...user_metadata})
+      JSON.stringify({ ...app_metadata, created_at, confirmed_at, email, id, ...user_metadata })
     );
   }
 }
