@@ -6,6 +6,7 @@ import NavBar from './components/NavBar';
 import PageNotFound from './components/PageNotFound';
 import { Route, Switch } from "react-router-dom"
 import styled from "styled-components"
+import netlifyIdentity from 'netlify-identity-widget'
 
 function App() {
 
@@ -15,10 +16,16 @@ function App() {
 `
 
   const Routes = styled.div`
-  
 `
+
+function handleLogIn () {
+  netlifyIdentity.init();
+  netlifyIdentity.open();
+}
+
   return (
     <Main>
+      <button onClick={handleLogIn} >Log in with netlify</button>
       <NavBar />
       <Routes>
         <Switch>
