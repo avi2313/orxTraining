@@ -19,14 +19,6 @@ function App() {
   useEffect(() => {
     // Update the document title using the browser API
     netlifyIdentity.init();
-    const user = localStorage.getItem("currentOpenSaucedUser");
-    if (user) {
-      setUser({ user: JSON.parse(user) });
-    } else {
-      loginUser();
-    }
-    netlifyIdentity.on("login", (user) => setUser(user));
-    netlifyIdentity.on("logout", (user) => setUser(null));
   });
 
   function handleLogIn() {
@@ -55,15 +47,14 @@ export function loginUser() {
       app_metadata, created_at, confirmed_at, email, id, user_metadata
     } = netlifyIdentity.currentUser();
 
-    localStorage.setItem(
-      "currentOpenSaucedUser",
+    setUser(
       JSON.stringify({ ...app_metadata, created_at, confirmed_at, email, id, ...user_metadata })
     );
   }
 }
 
 export function logoutUser() {
-  localStorage.removeItem("currentOpenSaucedUser");
+  setUser(null);
 }
 
 export default App;
