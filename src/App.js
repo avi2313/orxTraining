@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Home from './components/Home';
 import About from './components/About';
@@ -12,30 +12,49 @@ function App() {
 
   const Main = styled.div`
   display: flex;
-  align-items: center;
-`
+  align-items: center;`
+ 
+  const [user] = useState(null);
 
-  const Routes = styled.div`
-`
+  useEffect(() => {
+    // Update the document title using the browser API
+    netlifyIdentity.init();
+  });
 
-function handleLogIn () {
-  netlifyIdentity.init();
-  netlifyIdentity.open();
-}
+  function handleLogIn () {
+    netlifyIdentity.open();
+  }
 
   return (
     <Main>
       <button onClick={handleLogIn} >Log in with netlify</button>
       <NavBar />
-      <Routes>
+      <div>
         <Switch>
           <Route path="/" component={Home} exact />
           <Route path="/about" component={About} />
           <Route component={PageNotFound} />
         </Switch>
-      </Routes>
+      </div>
     </Main>
   );
+}
+
+export function loginUser() {
+  if (netlifyIdentity && netlifyIdentity.currentUser()) {
+    const {
+      app_metadata, created_at, confirmed_at, email, id, user_metadata
+    } = netlifyIdentity.currentUser();
+
+    localStorage.setItem(
+      "currentOpenSaucedUser",
+      JSON.stringify({...app_metadata, created_at, confirmed_at, email, id, ...user_metadata})
+    );
+  }
+}
+
+export function logoutUser() {
+  localStorage.removeItem("currentOpenSaucedUser");
 }
 
 export default App;
