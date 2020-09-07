@@ -14,7 +14,7 @@ function Navbar() {
 
     return (
         <Bar>
-            <Link to="/">Home </Link>
+            <Link to="/home">Home </Link>
             <Link to="/about">About Us </Link>
             <Link to="/shop">Shop Now </Link>
         </Bar>

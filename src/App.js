@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Home from './components/Home';
 import About from './components/About';
+import Shop from './components/shop';
 import NavBar from './components/NavBar';
 import PageNotFound from './components/PageNotFound';
-import { Route, Switch , Redirect } from "react-router-dom"
+import { Route, Switch, Redirect } from "react-router-dom"
 import styled from "styled-components"
 import netlifyIdentity from 'netlify-identity-widget'
 
@@ -19,25 +20,39 @@ function App() {
     // Update the document title using the browser API
   });
 
-  
+
 
   return (
     <ThemeContext.Provider value={"Day"}>
-    <Main>
-      <span>{netlifyIdentity.currentUser() ? netlifyIdentity.currentUser() : "please login"}</span>
-      <NavBar />
-      <div>
-        <Switch>
-          <Route path="/" component={Home} exact>
-            {netlifyIdentity.currentUser() ? <Redirect to="/about" /> : <Home />}
-          </Route>
+      <Main>
+        <span>{netlifyIdentity.currentUser() ? netlifyIdentity.currentUser() : "please login"}</span>
+        <NavBar />
+        <div>
+          <Switch>
           <Route path="/about" component={About} />
-          <Route component={PageNotFound} />
-        </Switch>
-      </div>
-    </Main>
+            <WithAuthWrapper>
+              <Route path="/home" component={Home} />
+              <Route path="/shop" component={Shop} />
+              <Route component={PageNotFound} />
+            </WithAuthWrapper>
+          </Switch>
+        </div>
+      </Main>
     </ThemeContext.Provider>
   );
 }
 
 export default App;
+
+
+const WithAuthWrapper = ({ children }) => {
+  if (netlifyIdentity.currentUser()) {
+    return children;
+  }
+  return <Redirect to="/about" />
+}
+
+
+const ShopPrivateRoute = () => {
+  return <Shop />;
+}
