@@ -29,11 +29,13 @@ function App() {
         <NavBar />
         <div>
           <Switch>
-          <Route path="/about" component={About} />
+            <Route path="/about" component={About} />
             <WithAuthWrapper>
-              <Route path="/home" component={Home} />
-              <Route path="/shop" component={Shop} />
-              <Route component={PageNotFound} />
+              <Switch>
+                <Route path="/home" component={Home} />
+                <Route path="/shop" component={Shop} />
+                <Route component={PageNotFound} />
+              </Switch>
             </WithAuthWrapper>
           </Switch>
         </div>
