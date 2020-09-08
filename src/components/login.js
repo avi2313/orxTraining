@@ -9,10 +9,10 @@ function Login({updateLogin}) {
         netlifyIdentity.open();
     }
 
-    function loginUser() {
-        if (netlifyIdentity && netlifyIdentity.currentUser()) {
-            updateLogin(netlifyIdentity.currentUser());
-        }
+    const loginUser = (user) => {
+        console.log("Stolen",netlifyIdentity.currentUser());
+        console.log("aba",user);
+        updateLogin(user);
     }
 
     function logoutUser() {
@@ -25,7 +25,7 @@ function Login({updateLogin}) {
 
         // loginUser();
 
-        netlifyIdentity.on("login", (user) => loginUser());
+        netlifyIdentity.on("login", (user) => loginUser(user));
         netlifyIdentity.on("logout", (user) => logoutUser());
     },[]);
 

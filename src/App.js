@@ -12,9 +12,18 @@ import netlifyIdentity from 'netlify-identity-widget'
 function App() {
   const [userName, setUserName] = useState({name:'name'});
 
-  debugger;
 
   // const currentUserContext = React.createContext("I");
+
+//   useEffect(() => {
+//     // Update the document title using the browser API
+//     netlifyIdentity.init();
+
+//     // loginUser();
+
+//     netlifyIdentity.on("login", (user) => setUserName(user));
+//     netlifyIdentity.on("logout", (user) => setUserName({name:'name'}));
+// },[]);
 
 
 
@@ -22,7 +31,7 @@ function App() {
   return (
     // <currentUserContext.Provider value={userName}>
       <Main>
-        <span>{JSON.stringify(userName)}</span>
+        <span>{JSON.stringify(userName}</span>
         <NavBar />
         <div>
           <Switch>
