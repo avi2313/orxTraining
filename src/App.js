@@ -40,7 +40,7 @@ function App() {
         <div>
           <Switch>
             <Route path="/login" component={() => <Login updateLogin={setUserName} />} />
-            <WithAuthWrapper>
+            <WithAuthWrapper userName={userName}>
               <Switch>
                 <Route path="/home" component={Home} />
                 <Route path="/shop" component={Shop} />
@@ -57,7 +57,7 @@ function App() {
 export default App;
 
 
-const WithAuthWrapper = ({ children }) => {
+const WithAuthWrapper = ({ children,userName }) => {
   if (userName.api) {
     return children;
   }
