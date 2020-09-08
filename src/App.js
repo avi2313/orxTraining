@@ -10,28 +10,23 @@ import styled from "styled-components"
 import netlifyIdentity from 'netlify-identity-widget'
 
 function App() {
-  const [userName, setUserName] = useState("I");
+  const [userName, setUserName] = useState({name:'name'});
+
+  debugger;
 
   // const currentUserContext = React.createContext("I");
 
-  const Main = styled.div`
-  display: flex;
-  align-items: center;`
-
-  useEffect(() => {
-    // Update the document title using the browser API
-  });
 
 
 
   return (
     // <currentUserContext.Provider value={userName}>
       <Main>
-        <span>{userName}</span>
+        <span>{JSON.stringify(userName)}</span>
         <NavBar />
         <div>
           <Switch>
-            <Route path="/login" component={() => <Login updateLogin={(name) => setUserName(name)} />} />
+            <Route path="/login" component={() => <Login updateLogin={setUserName} />} />
             <WithAuthWrapper>
               <Switch>
                 <Route path="/home" component={Home} />
@@ -55,3 +50,7 @@ const WithAuthWrapper = ({ children }) => {
   }
   return <Redirect to="/login" />
 }
+
+const Main = styled.div`
+display: flex;
+align-items: center;`;

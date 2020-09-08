@@ -1,31 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import netlifyIdentity from 'netlify-identity-widget'
 
-function Login(props) {
+function Login({updateLogin}) {
 
     // const currentUserContext = React.createContext("I");
 
-    const [user,setUser] = useState("me");
-
-    function handleLogIn() {
+    const handleLogIn = () => {
         netlifyIdentity.open();
-
     }
 
     function loginUser() {
         if (netlifyIdentity && netlifyIdentity.currentUser()) {
-            const {
-              app_metadata, created_at, confirmed_at, email, id, user_metadata
-            } = netlifyIdentity.currentUser();
-            const str = JSON.stringify({...app_metadata, created_at, confirmed_at, email, id, ...user_metadata})
-            props.updateLogin(str);
-            setUser(str);
+            updateLogin(netlifyIdentity.currentUser());
         }
     }
 
     function logoutUser() {
-        props.updateLogin("no one");
-        setUser("no one");
+        updateLogin("no one");
     }
 
     useEffect(() => {
@@ -36,7 +27,7 @@ function Login(props) {
 
         netlifyIdentity.on("login", (user) => loginUser());
         netlifyIdentity.on("logout", (user) => logoutUser());
-    });
+    },[]);
 
     return (
         // <currentUserContext.Consumer>
