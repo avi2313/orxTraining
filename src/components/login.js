@@ -34,7 +34,7 @@ function Login({updateLogin}) {
         //     {(currentUser) => (
                 <div>
                     <button onClick={handleLogIn} >Log in with netlify</button>
-                    <h1>{user}</h1>
+                    {/* <h1>{user}</h1> */}
                 </div>
         //     )}
         // </currentUserContext.Consumer>
