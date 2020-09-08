@@ -9,10 +9,10 @@ import { Route, Switch, Redirect } from "react-router-dom"
 import styled from "styled-components"
 import netlifyIdentity from 'netlify-identity-widget'
 
+const currentUserContext = React.createContext(undefined);
+
 function App() {
   const [userMail, setUserMail] = useState({name:'name'});
-
-  const CurrentUserContext = createContext(undefined);
 
   useEffect(() => {
     netlifyIdentity.init();
@@ -31,7 +31,7 @@ function App() {
 
 
   return (
-    <CurrentUserContext.Provider value={userMail}>
+    <currentUserContext.Provider value={userMail}>
       <Main>
         <span>{JSON.stringify(userMail)}</span>
         <NavBar />
@@ -48,11 +48,12 @@ function App() {
           </Switch>
         </div>
       </Main>
-    </CurrentUserContext.Provider>
+    </currentUserContext.Provider>
   );
 }
 
 export default App;
+export {currentUserContext};
 
 
 const WithAuthWrapper = ({ children,userName }) => {
