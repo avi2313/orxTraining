@@ -11,7 +11,7 @@ function Login(props) {
     }
 
     function loginUser() {
-        props.updateLogin(netlifyIdentity.currentUser().user_metadata.full_name);
+        props.updateLogin(netlifyIdentity.currentUser().user_metadata);
     }
 
     function logoutUser() {
