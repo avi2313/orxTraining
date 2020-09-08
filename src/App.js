@@ -18,7 +18,7 @@ function App() {
   useEffect(() => {
     // Update the document title using the browser API
     netlifyIdentity.init();
-
+    console.log(netlifyIdentity.currentUser())
     if(netlifyIdentity.currentUser()){
       setUserName(netlifyIdentity.currentUser());
     }
@@ -58,7 +58,7 @@ export default App;
 
 
 const WithAuthWrapper = ({ children }) => {
-  if (netlifyIdentity.currentUser()) {
+  if (userName.api) {
     return children;
   }
   return <Redirect to="/login" />
