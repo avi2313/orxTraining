@@ -11,7 +11,12 @@ function Login(props) {
     }
 
     function loginUser() {
-        props.updateLogin(netlifyIdentity.currentUser().user_metadata);
+        if (netlifyIdentity && netlifyIdentity.currentUser()) {
+            const {
+              app_metadata, created_at, confirmed_at, email, id, user_metadata
+            } = netlifyIdentity.currentUser();
+            props.updateLogin(user_metadata);
+        }
     }
 
     function logoutUser() {
