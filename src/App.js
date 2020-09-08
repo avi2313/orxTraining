@@ -12,7 +12,7 @@ import netlifyIdentity from 'netlify-identity-widget'
 const currentUserContext = React.createContext(undefined);
 
 function App() {
-  const [userMail, setUserMail] = useState({name:'name'});
+  const [userMail, setUserMail] = useState(undefined);
 
   useEffect(() => {
     netlifyIdentity.init();
@@ -23,8 +23,8 @@ function App() {
 
     // loginUser();
 
-    netlifyIdentity.on("login", (user) => setUserMail(user.email));
-    netlifyIdentity.on("logout", (user) => setUserMail({name:'name'}));
+    netlifyIdentity.on("login", (user) => setUserMail(user));
+    netlifyIdentity.on("logout", (user) => setUserMail(undefined));
 },[]);
 
 
@@ -33,12 +33,12 @@ function App() {
   return (
     <currentUserContext.Provider value={userMail}>
       <Main>
-        <span>{JSON.stringify(userMail)}</span>
+        <span>{userMail}</span>
         <NavBar />
         <div>
           <Switch>
             <Route path="/login" component={() => <Login updateLogin={setUserMail} />} />
-            <WithAuthWrapper userName={userMail}>
+            <WithAuthWrapper user={userMail}>
               <Switch>
                 <Route path="/home" component={Home} />
                 <Route path="/shop" component={Shop} />
@@ -56,8 +56,8 @@ export default App;
 export {currentUserContext};
 
 
-const WithAuthWrapper = ({ children,userName }) => {
-  if (userName) {
+const WithAuthWrapper = ({ children,user }) => {
+  if (user) {
     return children;
   }
   return <Redirect to="/login" />
