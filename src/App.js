@@ -31,7 +31,7 @@ function App() {
   return (
     // <currentUserContext.Provider value={userName}>
       <Main>
-        <span>{JSON.stringify(userName}</span>
+        <span>{JSON.stringify(userName)}</span>
         <NavBar />
         <div>
           <Switch>
