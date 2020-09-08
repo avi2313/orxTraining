@@ -3,7 +3,7 @@ import netlifyIdentity from 'netlify-identity-widget'
 
 function Login(props) {
 
-    const currentUserContext = React.createContext("I");
+    // const currentUserContext = React.createContext("I");
 
     function handleLogIn() {
         netlifyIdentity.open();
@@ -34,14 +34,14 @@ function Login(props) {
     });
 
     return (
-        <currentUserContext.Consumer>
-            {(currentUser) => (
+        // <currentUserContext.Consumer>
+        //     {(currentUser) => (
                 <div>
                     <button onClick={handleLogIn} >Log in with netlify</button>
                     <h1>{currentUser}</h1>
                 </div>
-            )}
-        </currentUserContext.Consumer>
+        //     )}
+        // </currentUserContext.Consumer>
     )
 }
 

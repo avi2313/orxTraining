@@ -12,7 +12,7 @@ import netlifyIdentity from 'netlify-identity-widget'
 function App() {
   const [userName, setUser] = useState("I");
 
-  const currentUserContext = React.createContext("I");
+  // const currentUserContext = React.createContext("I");
 
   const Main = styled.div`
   display: flex;
@@ -25,7 +25,7 @@ function App() {
 
 
   return (
-    <currentUserContext.Provider value={userName}>
+    // <currentUserContext.Provider value={userName}>
       <Main>
         <span>{netlifyIdentity.currentUser() ? netlifyIdentity.currentUser() : "please login"}</span>
         <NavBar />
@@ -42,7 +42,7 @@ function App() {
           </Switch>
         </div>
       </Main>
-    </currentUserContext.Provider>
+    // </currentUserContext.Provider>
   );
 }
 
