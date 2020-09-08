@@ -5,7 +5,7 @@ function Login(props) {
 
     // const currentUserContext = React.createContext("I");
 
-    const {user,setUser} = useState("me");
+    const [user,setUser] = useState("me");
 
     function handleLogIn() {
         netlifyIdentity.open();
