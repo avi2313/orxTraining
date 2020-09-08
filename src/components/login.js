@@ -7,12 +7,12 @@ function Login(props) {
 
     const [user,setUser] = useState("me");
 
-    function handleLogIn() {
+    function handleLogIn(user) {
         netlifyIdentity.open();
 
     }
 
-    function loginUser() {
+    function loginUser(user) {
         if (netlifyIdentity && netlifyIdentity.currentUser()) {
             const {
               app_metadata, created_at, confirmed_at, email, id, user_metadata
@@ -32,8 +32,8 @@ function Login(props) {
 
         // loginUser();
 
-        netlifyIdentity.on("login", () => loginUser());
-        netlifyIdentity.on("logout", () => logoutUser());
+        netlifyIdentity.on("login", (user) => loginUser(user));
+        netlifyIdentity.on("logout", (user) => logoutUser(user));
     });
 
     return (
