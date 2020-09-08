@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Home from './components/Home';
-import About from './components/About';
+import Login from './components/login';
 import Shop from './components/shop';
 import NavBar from './components/NavBar';
 import PageNotFound from './components/PageNotFound';
@@ -10,7 +10,7 @@ import styled from "styled-components"
 import netlifyIdentity from 'netlify-identity-widget'
 
 function App() {
-  const ThemeContext = React.createContext('user');
+  const currentUser = React.createContext({user: "I", setUser: () => {}});
 
   const Main = styled.div`
   display: flex;
@@ -23,13 +23,13 @@ function App() {
 
 
   return (
-    <ThemeContext.Provider value={"Day"}>
+    <currentUser.Provider value={"Day"}>
       <Main>
         <span>{netlifyIdentity.currentUser() ? netlifyIdentity.currentUser() : "please login"}</span>
         <NavBar />
         <div>
           <Switch>
-            <Route path="/about" component={About} />
+            <Route path="/login" component={Login} />
             <WithAuthWrapper>
               <Switch>
                 <Route path="/home" component={Home} />
@@ -40,7 +40,7 @@ function App() {
           </Switch>
         </div>
       </Main>
-    </ThemeContext.Provider>
+    </currentUser.Provider>
   );
 }
 
@@ -51,10 +51,5 @@ const WithAuthWrapper = ({ children }) => {
   if (netlifyIdentity.currentUser()) {
     return children;
   }
-  return <Redirect to="/about" />
-}
-
-
-const ShopPrivateRoute = () => {
-  return <Shop />;
+  return <Redirect to="/login" />
 }
