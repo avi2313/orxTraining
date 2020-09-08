@@ -58,7 +58,7 @@ export default App;
 
 
 const WithAuthWrapper = ({ children,userName }) => {
-  if (userName.api) {
+  if (userName) {
     return children;
   }
   return <Redirect to="/login" />
