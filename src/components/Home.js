@@ -7,7 +7,7 @@ function Home() {
     return (
         <div>
             <currentUserContext.Consumer>
-                {(userDetails) => <h1>hello, {userDetails.name}!</h1>}
+                {(userDetails) => <h1>hello, {userDetails}!</h1>}
             </currentUserContext.Consumer>
         </div>
     )
