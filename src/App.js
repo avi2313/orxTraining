@@ -20,12 +20,12 @@ function App() {
     netlifyIdentity.init();
     console.log(netlifyIdentity.currentUser())
     if(netlifyIdentity.currentUser()){
-      setUserName(netlifyIdentity.currentUser());
+      setUserName(netlifyIdentity.currentUser().email);
     }
 
     // loginUser();
 
-    netlifyIdentity.on("login", (user) => setUserName(user));
+    netlifyIdentity.on("login", (user) => setUserName(user.email));
     netlifyIdentity.on("logout", (user) => setUserName({name:'name'}));
 },[]);
 
