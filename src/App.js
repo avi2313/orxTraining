@@ -19,9 +19,13 @@ function App() {
     // Update the document title using the browser API
     netlifyIdentity.init();
 
+    if(netlifyIdentity.currentUser()){
+      setUserName(netlifyIdentity.currentUser());
+    }
+
     // loginUser();
 
-    netlifyIdentity.on("login", (user) => {console.log(user);setUserName(user);});
+    netlifyIdentity.on("login", (user) => setUserName(user));
     netlifyIdentity.on("logout", (user) => setUserName({name:'name'}));
 },[]);
 
