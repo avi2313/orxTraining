@@ -15,15 +15,15 @@ function App() {
 
   // const currentUserContext = React.createContext("I");
 
-//   useEffect(() => {
-//     // Update the document title using the browser API
-//     netlifyIdentity.init();
+  useEffect(() => {
+    // Update the document title using the browser API
+    netlifyIdentity.init();
 
-//     // loginUser();
+    // loginUser();
 
-//     netlifyIdentity.on("login", (user) => setUserName(user));
-//     netlifyIdentity.on("logout", (user) => setUserName({name:'name'}));
-// },[]);
+    netlifyIdentity.on("login", (user) => {console.log(user);setUserName(user);});
+    netlifyIdentity.on("logout", (user) => setUserName({name:'name'}));
+},[]);
 
 
 

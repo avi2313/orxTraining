@@ -9,25 +9,25 @@ function Login({updateLogin}) {
         netlifyIdentity.open();
     }
 
-    const loginUser = (user) => {
-        console.log("Stolen",netlifyIdentity.currentUser());
-        console.log("aba",user);
-        updateLogin(user);
-    }
+    // const loginUser = (user) => {
+    //     console.log("Stolen",netlifyIdentity.currentUser());
+    //     console.log("aba",user);
+    //     updateLogin(user);
+    // }
 
-    function logoutUser() {
-        updateLogin("no one");
-    }
+    // function logoutUser() {
+    //     updateLogin("no one");
+    // }
 
-    useEffect(() => {
-        // Update the document title using the browser API
-        netlifyIdentity.init();
+    // useEffect(() => {
+    //     // Update the document title using the browser API
+    //     netlifyIdentity.init();
 
-        // loginUser();
+    //     // loginUser();
 
-        netlifyIdentity.on("login", (user) => loginUser(user));
-        netlifyIdentity.on("logout", (user) => logoutUser());
-    },[]);
+    //     netlifyIdentity.on("login", (user) => loginUser(user));
+    //     netlifyIdentity.on("logout", (user) => logoutUser());
+    // },[]);
 
     return (
         // <currentUserContext.Consumer>
