@@ -10,37 +10,35 @@ import styled from "styled-components"
 import netlifyIdentity from 'netlify-identity-widget'
 
 function App() {
-  const [userName, setUserName] = useState({name:'name'});
+  const [userMail, setUserMail] = useState({name:'name'});
 
-
-  // const currentUserContext = React.createContext("I");
+  const CurrentUserContext = createContext(undefined);
 
   useEffect(() => {
-    // Update the document title using the browser API
     netlifyIdentity.init();
-    console.log(netlifyIdentity.currentUser())
+
     if(netlifyIdentity.currentUser()){
-      setUserName(netlifyIdentity.currentUser().email);
+      setUserMail(netlifyIdentity.currentUser().email);
     }
 
     // loginUser();
 
-    netlifyIdentity.on("login", (user) => setUserName(user.email));
-    netlifyIdentity.on("logout", (user) => setUserName({name:'name'}));
+    netlifyIdentity.on("login", (user) => setUserMail(user.email));
+    netlifyIdentity.on("logout", (user) => setUserMail({name:'name'}));
 },[]);
 
 
 
 
   return (
-    // <currentUserContext.Provider value={userName}>
+    <CurrentUserContext.Provider value={userMail}>
       <Main>
-        <span>{JSON.stringify(userName)}</span>
+        <span>{JSON.stringify(userMail)}</span>
         <NavBar />
         <div>
           <Switch>
-            <Route path="/login" component={() => <Login updateLogin={setUserName} />} />
-            <WithAuthWrapper userName={userName}>
+            <Route path="/login" component={() => <Login updateLogin={setUserMail} />} />
+            <WithAuthWrapper userName={userMail}>
               <Switch>
                 <Route path="/home" component={Home} />
                 <Route path="/shop" component={Shop} />
@@ -50,7 +48,7 @@ function App() {
           </Switch>
         </div>
       </Main>
-    // </currentUserContext.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 

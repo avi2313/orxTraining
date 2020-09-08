@@ -1,7 +1,9 @@
 import React from "react"
 
 function Home() {
-  return <h1>Home</h1>
+    const userDetails = React.useContext(CurrentUserContext);
+
+    return <h1>hello, {userDetails}!</h1>
 }
 
 export default Home
