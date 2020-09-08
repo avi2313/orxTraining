@@ -5,6 +5,8 @@ function Login(props) {
 
     // const currentUserContext = React.createContext("I");
 
+    const {user,setUser} = useState("me");
+
     function handleLogIn() {
         netlifyIdentity.open();
 
@@ -16,6 +18,7 @@ function Login(props) {
               app_metadata, created_at, confirmed_at, email, id, user_metadata
             } = netlifyIdentity.currentUser();
             props.updateLogin(user_metadata);
+            setUser(user_metadata);
         }
     }
 
@@ -38,7 +41,7 @@ function Login(props) {
         //     {(currentUser) => (
                 <div>
                     <button onClick={handleLogIn} >Log in with netlify</button>
-                    <h1>{currentUser}</h1>
+                    <h1>{user}</h1>
                 </div>
         //     )}
         // </currentUserContext.Consumer>
