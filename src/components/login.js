@@ -23,7 +23,8 @@ function Login(props) {
     }
 
     function logoutUser() {
-        props.updateLogin(null);
+        props.updateLogin("no one");
+        setUser("no one");
     }
 
     useEffect(() => {
