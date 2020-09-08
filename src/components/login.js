@@ -3,9 +3,11 @@ import netlifyIdentity from 'netlify-identity-widget'
 
 function Login(props) {
 
+    const currentUserContext = React.createContext("I");
+
     function handleLogIn() {
         netlifyIdentity.open();
-        
+
     }
 
     function loginUser() {
@@ -28,12 +30,14 @@ function Login(props) {
 
     return (
         <currentUserContext.Consumer>
-        {(currentUser) => (
-          <button onClick={handleLogIn} >Log in with netlify</button>
-          <h1>{currentUser}</h1>
-        )}
-      </currentUserContext.Consumer>
-      )
+            {(currentUser) => (
+                <div>
+                    <button onClick={handleLogIn} >Log in with netlify</button>
+                    <h1>{currentUser}</h1>
+                </div>
+            )}
+        </currentUserContext.Consumer>
+    )
 }
 
 export default Login

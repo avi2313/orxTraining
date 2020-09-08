@@ -15,7 +15,7 @@ function Navbar() {
     return (
         <Bar>
             <Link to="/home">Home </Link>
-            <Link to="/about">About Us </Link>
+            <Link to="/login">About Us </Link>
             <Link to="/shop">Shop Now </Link>
         </Bar>
     );

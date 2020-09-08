@@ -10,7 +10,9 @@ import styled from "styled-components"
 import netlifyIdentity from 'netlify-identity-widget'
 
 function App() {
-  const currentUser = React.createContext({user: "I", setUser: () => {}});
+  const [userName, setUser] = useState("I");
+
+  const currentUserContext = React.createContext("I");
 
   const Main = styled.div`
   display: flex;
@@ -23,13 +25,13 @@ function App() {
 
 
   return (
-    <currentUser.Provider value={"Day"}>
+    <currentUserContext.Provider value={userName}>
       <Main>
         <span>{netlifyIdentity.currentUser() ? netlifyIdentity.currentUser() : "please login"}</span>
         <NavBar />
         <div>
           <Switch>
-            <Route path="/login" component={Login} />
+            <Route path="/login" component={() => <Login updateLogin={setUser} />} />
             <WithAuthWrapper>
               <Switch>
                 <Route path="/home" component={Home} />
@@ -40,7 +42,7 @@ function App() {
           </Switch>
         </div>
       </Main>
-    </currentUser.Provider>
+    </currentUserContext.Provider>
   );
 }
 
