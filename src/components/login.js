@@ -7,18 +7,19 @@ function Login(props) {
 
     const [user,setUser] = useState("me");
 
-    function handleLogIn(user) {
+    function handleLogIn() {
         netlifyIdentity.open();
 
     }
 
-    function loginUser(user) {
+    function loginUser() {
         if (netlifyIdentity && netlifyIdentity.currentUser()) {
             const {
               app_metadata, created_at, confirmed_at, email, id, user_metadata
             } = netlifyIdentity.currentUser();
-            props.updateLogin(user_metadata);
-            setUser(user_metadata);
+            const str = JSON.stringify({...app_metadata, created_at, confirmed_at, email, id, ...user_metadata})
+            props.updateLogin(str);
+            setUser(str);
         }
     }
 
@@ -33,8 +34,8 @@ function Login(props) {
 
         // loginUser();
 
-        netlifyIdentity.on("login", (user) => loginUser(user));
-        netlifyIdentity.on("logout", (user) => logoutUser(user));
+        netlifyIdentity.on("login", (user) => loginUser());
+        netlifyIdentity.on("logout", (user) => logoutUser());
     });
 
     return (

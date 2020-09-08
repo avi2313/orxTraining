@@ -10,7 +10,7 @@ import styled from "styled-components"
 import netlifyIdentity from 'netlify-identity-widget'
 
 function App() {
-  const [userName, setUser] = useState("I");
+  const [userName, setUserName] = useState("I");
 
   // const currentUserContext = React.createContext("I");
 
@@ -27,11 +27,11 @@ function App() {
   return (
     // <currentUserContext.Provider value={userName}>
       <Main>
-        <span>{netlifyIdentity.currentUser() ? netlifyIdentity.currentUser() : "please login"}</span>
+        <span>{userName}</span>
         <NavBar />
         <div>
           <Switch>
-            <Route path="/login" component={() => <Login updateLogin={setUser} />} />
+            <Route path="/login" component={() => <Login updateLogin={(name) => setUserName(name)} />} />
             <WithAuthWrapper>
               <Switch>
                 <Route path="/home" component={Home} />
